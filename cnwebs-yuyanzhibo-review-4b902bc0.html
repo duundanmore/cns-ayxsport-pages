@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>雨燕直播 · 快速识别与功能概览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fbe9e0 0%, #f6d5c6 45%, #ecc3b1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem 3rem;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 820px;
+            width: 100%;
+        }
+
+        /* 暖色渐变卡片容器，模拟白色卡片叠加 */
+        .card {
+            background: #fffffffa;
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 2.2rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 30px -10px rgba(110, 50, 30, 0.2),
+                        0 4px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 18px 36px -12px rgba(80, 40, 20, 0.2);
+        }
+
+        /* Hero 区域特别处理，可让背景半透 */
+        .hero-card {
+            background: rgba(255, 250, 245, 0.88);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 215, 190, 0.3);
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #b4533a, #8b3a28);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #4b2c22;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-top: 0.1rem;
+            border-left: 4px solid #d77a5e;
+            padding-left: 1rem;
+        }
+
+        .tagline {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            background: #fbebe5;
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            color: #782f1d;
+            font-weight: 500;
+            border: 1px solid #ecc3b1;
+        }
+
+        .flex-2col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+        }
+
+        .flex-2col > div {
+            flex: 1 1 200px;
+        }
+
+        .feature-item {
+            background: #fcf3ee;
+            border-radius: 20px;
+            padding: 1.2rem 1.2rem 1.2rem 1.5rem;
+            border-left: 6px solid #c9755a;
+        }
+
+        .feature-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #632d1d;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-item p {
+            font-size: 0.95rem;
+            color: #2a1a14;
+        }
+
+        .explain-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .explain-cell {
+            background: #f9ede7;
+            border-radius: 24px;
+            padding: 1.3rem 1.2rem;
+        }
+
+        .explain-cell h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #632d1d;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .explain-cell p {
+            font-size: 0.92rem;
+            color: #2f1f19;
+        }
+
+        /* FAQ 摘要 */
+        .faq-block {
+            background: #f8e7df;
+            border-radius: 28px;
+            padding: 1.5rem 1.8rem;
+        }
+
+        .faq-item {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #ddc2b5;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: #632d1d;
+            font-size: 1rem;
+        }
+
+        .faq-a {
+            color: #3d2a21;
+            font-size: 0.92rem;
+            margin-top: 0.2rem;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background: #d77a5e;
+            color: white;
+            border-radius: 60px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+            margin: 0.2rem 0.1rem;
+        }
+
+        .btn-link:hover {
+            background: #b85236;
+            transform: scale(0.97);
+            box-shadow: 0 6px 12px rgba(160, 60, 30, 0.15);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem 2rem;
+            padding: 2rem 0 0.5rem;
+            border-top: 1px solid #cca28e;
+            margin-top: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #3a2017;
+            text-decoration: underline rgba(175, 100, 75, 0.3);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #9a3e28;
+            text-decoration-color: #b4583e;
+        }
+
+        .inline-link {
+            color: #9a3e28;
+            font-weight: 500;
+            text-decoration: underline rgba(155, 65, 40, 0.3);
+            transition: all 0.15s;
+        }
+
+        .inline-link:hover {
+            color: #632112;
+            text-decoration-color: #632112;
+        }
+
+        .source-note {
+            font-size: 0.75rem;
+            color: #735a4e;
+            text-align: center;
+            margin-top: 2.2rem;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.8rem 2rem;
+            }
+            .card {
+                padding: 1.5rem 1.2rem;
+                border-radius: 24px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .explain-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .flex-2col {
+                gap: 1rem;
+            }
+            .tagline {
+                font-size: 1rem;
+                padding: 0.2rem 1rem;
+            }
+            .faq-block {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- Hero 区：用户快速识别用途 -->
+    <div class="card hero-card">
+        <h1>雨燕直播 · 极简识别</h1>
+        <div class="subhead">体育 · 赛事 · 实时流    一站式指向</div>
+        <div class="tagline">⚡ 一眼判断，直达直播内容</div>
+        <p style="margin-top: 1.5rem; font-size: 1.05rem; color: #2b1b14;">
+            如果你正在找某个体育赛事、实时比赛或直播聚合，<a href="https://cnwebs-yuyanzhibo.com" class="inline-link">雨燕直播</a>
+            提供直观的导航与频道分类。页面设计偏重快速定位，无冗余干扰。
+        </p>
+        <p style="margin-top: 0.7rem; color: #3f291f;">
+            从首页布局即可判断其用途：顶部赛事列表、热门分类、动态更新，减少检索步骤。
+        </p>
+        <div style="margin-top: 1.4rem;">
+            <a href="https://cnwebs-yuyanzhibo.com" class="btn-link">雨燕直播</a>
+            <span style="font-size:0.85rem; color:#684e40; margin-left: 1rem;">直接访问，无需注册</span>
+        </div>
+    </div>
+
+    <!-- 优势区：信息密度高，突出特点 -->
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1rem;">
+            <h2 style="font-size:1.6rem; font-weight:500; color:#4a2a1e;">功能特点 · 一目了然</h2>
+            <span style="background: #dbbcae; padding:0.2rem 1rem; border-radius:60px; font-size:0.8rem; color:#2c1911;">快速识别</span>
+        </div>
+        <div class="flex-2col">
+            <div class="feature-item">
+                <h3>🏟️ 赛事覆盖</h3>
+                <p>足球、篮球、网球、电竞等主流项目，页面标题与列表直接展示，避免多层跳转。</p>
+            </div>
+            <div class="feature-item">
+                <h3>📺 直播流分类</h3>
+                <p>按联赛、时间、热门程度分组，每个频道标注清晰，减少选择困惑。</p>
+            </div>
+            <div class="feature-item">
+                <h3>⚙️ 低延迟路径</h3>
+                <p>从首页到播放页通常不超过两次点击，适合追求效率的用户。</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔍 搜索辅助</h3>
+                <p>内置搜索框用于快速过滤当前赛事，尤其适合同时开赛的多场次。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 说明区：使用场景+结构解释 -->
+    <div class="card">
+        <h2 style="font-size:1.4rem; font-weight:500; color:#4a2a1e; margin-bottom:1rem;">使用说明 · 场景对应</h2>
+        <div class="explain-grid">
+            <div class="explain-cell">
+                <h4>📆 查询今日赛事</h4>
+                <p>进入 <a href="https://cnwebs-yuyanzhibo.com" class="inline-link">雨燕直播</a> 后，默认展示当天热门比赛及倒计时，无需切换日期。</p>
+            </div>
+            <div class="explain-cell">
+                <h4>📌 收藏常用频道</h4>
+                <p>支持将特定联赛或主播加入收藏，刷新后仍保留，方便反复使用。</p>
+            </div>
+            <div class="explain-cell">
+                <h4>📱 移动端适配</h4>
+                <p>响应式布局在手机、平板上自动调整，按钮与列表间距合理，触控友好。</p>
+            </div>
+            <div class="explain-cell">
+                <h4>🔄 多源切换</h4>
+                <p>若某一路流卡顿，可一键切换备用信号源，减少观看中断。</p>
+            </div>
+        </div>
+        <p style="margin-top:1.2rem; font-size:0.95rem; background:#f7e4da; padding:0.6rem 1.2rem; border-radius:60px; color:#44261b;">
+            💡 提示：页面无强制注册或付费环节，所有可见直播源均可直接播放。
+        </p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="card">
+        <h2 style="font-size:1.4rem; font-weight:500; color:#4a2a1e; margin-bottom:0.8rem;">常见疑问 · 摘要</h2>
+        <div class="faq-block">
+            <div class="faq-item">
+                <div class="faq-q">Q：如何快速找到正在进行的比赛？</div>
+                <div class="faq-a">首页默认显示「进行中」标签，并按时间倒序排列。也可以通过顶部分类筛选。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q：是否支持回放或集锦？</div>
+                <div class="faq-a">主要聚焦实时直播，部分赛事结束后会保留录像入口，但并非全部。建议关注直播时段。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q：页面资源是否消耗较高？</div>
+                <div class="faq-a">静态资源经过压缩，直播流取决于源站，页面本身轻量，加载速度较快。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Q：是否需要安装额外软件或插件？</div>
+                <div class="faq-a">不需要。大部分直播基于网页播放器，兼容主流浏览器。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部链接与信息 -->
+    <div class="card" style="padding-bottom:1.5rem;">
+        <div class="footer-links">
+            <a href="https://cnwebs-yuyanzhibo.com">雨燕直播</a>
+            <a href="#">赛事索引</a>
+            <a href="#">频道指南</a>
+            <a href="#">播放帮助</a>
+        </div>
+        <div style="text-align:center; margin-top:1rem; font-size:0.85rem; color:#5d3e31;">
+            <span>基于网页的直播导航 · 内容由各来源提供</span>
+        </div>
+        <div class="source-note">
+            <span>本页仅为介绍用途，具体功能以实际站点为准。</span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
